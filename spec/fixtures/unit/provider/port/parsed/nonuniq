@@ -1,0 +1,6 @@
+# We test a few comments here
+# and anotherone
+telnet  23/tcp  # Telnet
+telnets 992/tcp # telnet protocol over TLS/SSL
+telnets 992/udp
+telnet  23/udp

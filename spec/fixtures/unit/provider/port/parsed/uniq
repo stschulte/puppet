@@ -1,0 +1,7 @@
+# We test a few comments here
+# and anotherone
+ftp-data	20/tcp	# File Transfer [Default Data]
+ftp	21/tcp	# File Transfer [Control]
+# One comment in the middle
+x11-ssh	6010/tcp	x11-ssh-offset # alias test
+baz 100/tcp alias1  alias # Multiple test
