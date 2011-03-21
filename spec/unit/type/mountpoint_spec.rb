@@ -52,6 +52,32 @@ describe mountpoint do
       end
     end
 
+    describe "for name" do
+
+      it "should support normal paths for name" do
+        proc { @class.new(:name => "/mnt/foo", :ensure => :mounted) }.should_not raise_error
+        proc { @class.new(:name => "/media/cdrom_foo_bar", :ensure => :mounted) }.should_not raise_error
+      end
+
+      it "should not support spaces in name" do
+        proc { @class.new(:name => "/mnt/foo bar", :ensure => :mounted) }.should raise_error
+        proc { @class.new(:name => "/m nt/foo", :ensure => :mounted) }.should raise_error
+      end
+
+      # ticket 6793
+      it "should not support trailing spaces" do
+        proc { @class.new(:name => "/mnt/foo/", :ensure => :mounted) }.should raise_error
+        proc { @class.new(:name => "/mnt/foo//", :ensure => :mounted) }.should raise_error
+      end
+
+      it "should not allow relative paths" do
+        proc { @class.new(:name => "mnt/foo/", :ensure => :mounted) }.should raise_error
+        proc { @class.new(:name => "./foo/", :ensure => :mounted) }.should raise_error
+      end
+
+    end
+
+
     describe "for device" do
 
       it "should support normal /dev paths for device" do

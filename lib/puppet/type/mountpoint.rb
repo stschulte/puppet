@@ -82,6 +82,13 @@ module Puppet
       desc "The mount path for the mount."
 
       isnamevar
+
+      validate do |value|
+        raise Puppet::Error, "Path is not allowed to contain whitespaces" if value =~ /\s/
+        raise Puppet::Error, "Path must be fully qualified not '#{value}'" unless value =~ /^\//
+        raise Puppet::Error, "Path should not contain a trailing slash" if value =~ /\/$/
+      end
+
     end
 
     newparam(:remounts) do
