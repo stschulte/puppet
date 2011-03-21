@@ -44,36 +44,36 @@ describe mountpoint do
 
     describe "for ensure" do
       it "should support mounted as a value for ensure" do
-        proc { @class.new(:name => "whev", :ensure => :mounted) }.should_not raise_error
+        proc { @class.new(:name => "/mnt/foo", :ensure => :mounted) }.should_not raise_error
       end
 
       it "should support unmounted as a value for ensure" do
-        proc { @class.new(:name => "whev", :ensure => :unmounted) }.should_not raise_error
+        proc { @class.new(:name => "/mnt/foo", :ensure => :unmounted) }.should_not raise_error
       end
     end
 
     describe "for device" do
 
       it "should support normal /dev paths for device" do
-        proc { @class.new(:name => "whev", :ensure => :mounted, :device => '/dev/hda1') }.should_not raise_error
-        proc { @class.new(:name => "whev", :ensure => :mounted, :device => '/dev/dsk/c0d0s0') }.should_not raise_error
+        proc { @class.new(:name => "/mnt/foo", :ensure => :mounted, :device => '/dev/hda1') }.should_not raise_error
+        proc { @class.new(:name => "/mnt/foo", :ensure => :mounted, :device => '/dev/dsk/c0d0s0') }.should_not raise_error
       end
 
       it "should support labels for device" do
-        proc { @class.new(:name => "whev", :ensure => :mounted, :device => 'LABEL=/boot') }.should_not raise_error
-        proc { @class.new(:name => "whev", :ensure => :mounted, :device => 'LABEL=SWAP-hda6') }.should_not raise_error
+        proc { @class.new(:name => "/mnt/foo", :ensure => :mounted, :device => 'LABEL=/boot') }.should_not raise_error
+        proc { @class.new(:name => "/mnt/foo", :ensure => :mounted, :device => 'LABEL=SWAP-hda6') }.should_not raise_error
       end
 
       it "should support pseudo devices for device" do
-        proc { @class.new(:name => "whev", :ensure => :mounted, :device => 'ctfs') }.should_not raise_error
-        proc { @class.new(:name => "whev", :ensure => :mounted, :device => 'swap') }.should_not raise_error
-        proc { @class.new(:name => "whev", :ensure => :mounted, :device => 'sysfs') }.should_not raise_error
-        proc { @class.new(:name => "whev", :ensure => :mounted, :device => 'proc') }.should_not raise_error
+        proc { @class.new(:name => "/mnt/foo", :ensure => :mounted, :device => 'ctfs') }.should_not raise_error
+        proc { @class.new(:name => "/mnt/foo", :ensure => :mounted, :device => 'swap') }.should_not raise_error
+        proc { @class.new(:name => "/mnt/foo", :ensure => :mounted, :device => 'sysfs') }.should_not raise_error
+        proc { @class.new(:name => "/mnt/foo", :ensure => :mounted, :device => 'proc') }.should_not raise_error
       end
 
       it "should not support blanks in device" do
-        proc { @class.new(:name => "whev", :ensure => :mounted, :device => '/dev/my dev/foo') }.should raise_error
-        proc { @class.new(:name => "whev", :ensure => :mounted, :device => "/dev/my\tdev/foo") }.should raise_error
+        proc { @class.new(:name => "/mnt/foo", :ensure => :mounted, :device => '/dev/my dev/foo') }.should raise_error
+        proc { @class.new(:name => "/mnt/foo", :ensure => :mounted, :device => "/dev/my\tdev/foo") }.should raise_error
       end
 
     end
@@ -81,17 +81,17 @@ describe mountpoint do
     describe "for fstype" do
 
       it "should support valid fstypes" do
-        proc { @class.new(:name => "whev", :ensure => :mounted, :fstype => 'ext3') }.should_not raise_error
-        proc { @class.new(:name => "whev", :ensure => :mounted, :fstype => 'proc') }.should_not raise_error
-        proc { @class.new(:name => "whev", :ensure => :mounted, :fstype => 'sysfs') }.should_not raise_error
+        proc { @class.new(:name => "/mnt/foo", :ensure => :mounted, :fstype => 'ext3') }.should_not raise_error
+        proc { @class.new(:name => "/mnt/foo", :ensure => :mounted, :fstype => 'proc') }.should_not raise_error
+        proc { @class.new(:name => "/mnt/foo", :ensure => :mounted, :fstype => 'sysfs') }.should_not raise_error
       end
 
       it "should support auto as a special fstype" do
-        proc { @class.new(:name => "whev", :ensure => :mounted, :fstype => 'auto') }.should_not raise_error
+        proc { @class.new(:name => "/mnt/foo", :ensure => :mounted, :fstype => 'auto') }.should_not raise_error
       end
 
       it "should not support blanks in fstype" do
-        proc { @class.new(:name => "whev", :ensure => :mounted, :fstype => 'ext 3') }.should raise_error
+        proc { @class.new(:name => "/mnt/foo", :ensure => :mounted, :fstype => 'ext 3') }.should raise_error
       end
 
     end
@@ -99,23 +99,23 @@ describe mountpoint do
     describe "for options" do
 
       it "should support a single option" do
-         proc { @class.new(:name => "whev", :ensure => :mounted, :options => 'ro') }.should_not raise_error
+         proc { @class.new(:name => "/mnt/foo", :ensure => :mounted, :options => 'ro') }.should_not raise_error
       end
 
       it "should support muliple options as an array" do
-        proc { @class.new(:name => "whev", :ensure => :mounted, :options => ['ro','rsize=4096']) }.should_not raise_error
+        proc { @class.new(:name => "/mnt/foo", :ensure => :mounted, :options => ['ro','rsize=4096']) }.should_not raise_error
       end
 
       it "should support an empty array as options" do
-        proc { @class.new(:name => "whev", :ensure => :mounted, :options => []) }.should_not raise_error
+        proc { @class.new(:name => "/mnt/foo", :ensure => :mounted, :options => []) }.should_not raise_error
       end
 
       it "should not support a comma separated option" do
-        proc { @class.new(:name => "whev", :ensure => :mounted, :options => ['ro','foo,bar','intr']) }.should raise_error
+        proc { @class.new(:name => "/mnt/foo", :ensure => :mounted, :options => ['ro','foo,bar','intr']) }.should raise_error
       end
 
       it "should not support blanks in options" do
-        proc { @class.new(:name => "whev", :ensure => :mounted, :options => ['ro','foo bar','intr']) }.should raise_error
+        proc { @class.new(:name => "/mnt/foo", :ensure => :mounted, :options => ['ro','foo bar','intr']) }.should raise_error
       end
 
     end
