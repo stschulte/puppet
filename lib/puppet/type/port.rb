@@ -40,6 +40,10 @@ module Puppet
       Currently only tcp and udp are supported and recognised when setting
       the protocol via the title."
 
+    def self.namevar_join(hash)
+      "#{hash[:name]}/#{hash[:protocol]}"
+    end
+
     def self.title_patterns
       [
         # we have two title_patterns "name" and "name:protocol". We won't use
