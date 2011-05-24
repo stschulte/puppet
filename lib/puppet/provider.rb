@@ -258,7 +258,7 @@ class Puppet::Provider
   end
 
   def name
-    if n = @property_hash[:name]
+    if n = self.class.resource_type.namevar_join(@property_hash)
       return n
     elsif self.resource
       resource.name

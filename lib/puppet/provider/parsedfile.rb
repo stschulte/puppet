@@ -193,15 +193,20 @@ class Puppet::Provider::ParsedFile < Puppet::Provider
       # Skip things like comments and blank lines
       next if skip_record?(record)
 
-      if name = record[:name] and resource = resources[name]
+      # collect all of the key attribute values from the record to create the key
+      key = resource_type.key_attributes.sort_by{ |k| k.to_s }.collect do |attr|
+        record[attr] 
+      end
+      key = key.to_s if key.size == 1
+      if resource = resources[key]
         resource.provider = new(record)
-      elsif respond_to?(:match)
-        if resource = match(record, matchers)
-          # Remove this resource from circulation so we don't unnecessarily try to match
-          matchers.delete(resource.title)
-          record[:name] = resource[:name]
-          resource.provider = new(record)
-        end
+#      elsif respond_to?(:match)
+#        if resource = match(record, matchers)
+#          # Remove this resource from circulation so we don't unnecessarily try to match
+#          matchers.delete(resource.title)
+#          record[:name] = resource[:name]
+#          resource.provider = new(record)
+#        end
       end
     end
   end

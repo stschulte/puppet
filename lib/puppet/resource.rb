@@ -426,6 +426,7 @@ class Puppet::Resource
           return h
         end
       }
+      raise ArgumentError, "invalid resource #{self.to_s} does not match any title patterns"
     else
       return { :name => title.to_s }
     end
